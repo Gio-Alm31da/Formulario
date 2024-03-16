@@ -10,9 +10,9 @@ class Funcionario {
     trabalhar() {
         return `Eu estou trabalhando como ${this.cargo}.`; 
     }
-}
-
-class Gerente extends Funcionario {
+  }
+  
+  class Gerente extends Funcionario {
     constructor(nome, idade, cargo, departamento) {
         super(nome, idade, cargo);
         this.departamento = departamento;
@@ -20,9 +20,9 @@ class Gerente extends Funcionario {
     gerenciar() {
         return `${this.nome} está gerenciando o departamento de ${this.departamento}.`;
     }
-}
-
-class Desenvolvedor extends Funcionario {
+  }
+  
+  class Desenvolvedor extends Funcionario {
     constructor(nome, idade, cargo, linguagem) {
         super(nome, idade, cargo);
         this.linguagem = linguagem;
@@ -30,22 +30,22 @@ class Desenvolvedor extends Funcionario {
     programar() {
         return `${this.nome} programa em ${this.linguagem}.`;
     }
-}
-
-document.getElementById('formularioFuncionario').addEventListener('submit', function (event) {
+  }
+  
+  document.getElementById('formularioFuncionario').addEventListener('submit', function (event) {
     event.preventDefault();
-
+  
     const nome = document.getElementById('nome').value;
     const idade = parseInt(document.getElementById('idade').value);
-
+  
     if (isNaN(idade)) {
         alert("Insira uma idade válida");
         return;
     }
-
+  
     const cargo = document.getElementById('cargo').value;
     const departamentoLinguagem = document.getElementById('departamentoLinguagem').value;
-
+  
     try {
         if (idade < 18) {
             throw new Error("A idade deve ser um número maior ou igual a 18.");
@@ -56,12 +56,12 @@ document.getElementById('formularioFuncionario').addEventListener('submit', func
         if (/\d/.test(nome)) {
             throw new Error("Números são caracteres inválidos para nome.");
         }
-
+  
         const departamentosValidos = ["Financeiro", "RH", "TI"];
         const linguagensValidas = ["JavaScript", "Python", "Java"];
-
+  
         let funcionario;
-
+  
         if (cargo === 'gerente') {
             if (!departamentosValidos.includes(departamentoLinguagem)) {
                 throw new Error("Departamento inválido para gerente.");
@@ -75,18 +75,18 @@ document.getElementById('formularioFuncionario').addEventListener('submit', func
         } else {
             throw new Error("Cargo não reconhecido.");
         }
-
+  
         let mensagem = funcionario.seApresentar() + " " + funcionario.trabalhar();
-
+  
         if (funcionario instanceof Gerente) {
             mensagem += " " + funcionario.gerenciar();
         } else if (funcionario instanceof Desenvolvedor) {
             mensagem += " " + funcionario.programar();
         }
-
+  
         document.getElementById('saida').textContent = mensagem;
     } catch (error) {
         console.error("Ops, algo deu errado:", error);
         document.getElementById('saida').textContent = `Erro: ${error.message}`;
-    }
-});
+      }
+  });
